@@ -1,7 +1,9 @@
-resource "aws_instances" "server" {
+resource "aws_instance" "server" {
     count=11
     ami = var.ami_id
-    instnce_names = var.aws_instance_names[count.index]
-    instance_type = var.instance_type
+    instance_type = var.instance_names[count.index] == "mongodb" || var.instance_names[count.index] == "mysql" ||var.instance_names[count.index] ? "t3.micro" : "t2.micro"
+    tags = {
+      Name = web
+    }
   
 }
