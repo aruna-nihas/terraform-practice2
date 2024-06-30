@@ -1,6 +1,6 @@
 resource "aws_instance" "web" {
-  #count = 11 # count.index is a special variable given by terraform
-  count = length(var.instance_names)
+  count = 11 # count.index is a special variable given by terraform
+  
   ami           = var.ami_id #devops-practice
   instance_type = var.instance_names[count.index] == "mongodb" || var.instance_names[count.index] == "mysql" || var.instance_names[count.index] == "shipping" ? "t3.small" : "t2.micro"
   tags = {
@@ -9,8 +9,8 @@ resource "aws_instance" "web" {
 }
 
 resource "aws_route53_record" "www" {
-  #count = 11
-  count = length(var.instance_names)
+  count = 11
+
   zone_id = var.zone-id
   name    = "${var.instance_names[count.index]}.${var.domain-name}" #interpolation
   type    = "A"
