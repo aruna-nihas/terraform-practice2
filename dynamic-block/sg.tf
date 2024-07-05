@@ -1,7 +1,6 @@
-resource "aws_security_group" "all-ports" {
-    name = dynamic-block 
-    description = dynamic-block
-    
+resource "aws_security_group" "allow-all" {
+    name = "dynamic-block"
+    description = "dynamic-block"
     dynamic "ingress" {
         for_each = var.ingress-rules
         content {
@@ -10,19 +9,18 @@ resource "aws_security_group" "all-ports" {
             to_port = ingress.value["to_port"]
             protocol = ingress.value["protocol"]
             cidr_blocks = ingress.value["cidr_blocks"]
-          
+
         }
-        
       
     }
     egress {
-        description = "allow-all-ports"
+        description = "allow-all-incoming-traffic"
         from_port = "0"
         to_port = "0"
         protocol = "-1"
         cidr_blocks = ["0.0.0.0/0"]
-
     }
+
     tags = {
       Name = "Dynamic-block"
     }
