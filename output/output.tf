@@ -3,7 +3,14 @@ resource "aws_instance" "server" {
     instance_type = "t2.micro"
   
 }
-output "instance_info" {
+# output "instance_info" {
+#     value = aws_instance.server
+  
+# }
+output "public_ip" {
     value = aws_instance.server
   
+}
+output "private_ip"{
+    value = aws_instance.server
 }
